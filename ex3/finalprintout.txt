@@ -1,0 +1,316 @@
+		Exercise -3
+1) Color box
+<html>
+  <head>
+	 <script>
+            function ir()
+            {
+                var a = document.getElementById("ir");
+                a.style.color= 'IndianRed';
+            }
+	  function lc()
+            {
+                var a = document.getElementById("lc");
+                a.style.color= 'LightCoral';
+            }      
+            function S()
+            {
+                var a = document.getElementById("S");
+                a.style.color= 'Salmon';
+            }
+            function DS()
+            {
+                var a = document.getElementById("DS");
+                a.style.color= 'DarkSalmon';
+            }
+	  function y()
+            {
+                var a = document.getElementById("y");
+                a.style.color= '#DFFF00';
+            }
+	  function o()
+            {
+                var a = document.getElementById("o");
+                a.style.color= '#FFBF00';
+            }      
+            function oo()
+            {
+                var a = document.getElementById("oo");
+                a.style.color= '#FF7F50';
+            }
+            function p()
+            {
+                var a = document.getElementById("p");
+                a.style.color= '#DE3163';
+            }
+	  function c()
+            {
+                var a = document.getElementById("c");
+                a.style.color= '#9FE2BF';
+            }
+	  function lb()
+            {
+                var a = document.getElementById("lb");
+                a.style.color= '#40E0D0';
+            }      
+            function b()
+            {
+                var a = document.getElementById("b");
+                a.style.color= '#6495ED';
+            }
+            function llb()
+            {
+                var a = document.getElementById("llb");
+                a.style.color= '#CCCCFF';
+            }
+	</script>
+  </head>
+  <body>
+    <table border="1">
+	<tr>
+	    <td id="ir" onmouseover="ir()" onmouseout="this.style.color='black';">#CD5C5C</td>
+	    <td id="lc" onmouseover="lc()" onmouseout="this.style.color='black';">#F08080</td>
+                <td id="S" onmouseover="S()" onmouseout="this.style.color='black';">#FA8072</td>
+                <td id="DS" onmouseover="DS()" onmouseout="this.style.color='black';">#E9967A</td> 
+	<tr>
+	<tr>
+	    <td id="y" onmouseover="y()" onmouseout="this.style.color='black';">#DFFF00</td>
+	    <td id="o" onmouseover="o()" onmouseout="this.style.color='black';">#FFBF00</td>
+                <td id="oo" onmouseover="oo()" onmouseout="this.style.color='black';">#FF7F50</td>
+                <td id="p" onmouseover="p()" onmouseout="this.style.color='black';">#DE3163</td> 
+	<tr>
+	<tr>
+	    <td id="c" onmouseover="c()" onmouseout="this.style.color='black';">#9FE2BF</td>
+	    <td id="lb" onmouseover="lb()" onmouseout="this.style.color='black';">#40E0D0</td>
+              <td id="b" onmouseover="b()" onmouseout="this.style.color='black';">#6495ED</td>
+              <td id="llb" onmouseover="llb()" onmouseout="this.style.color='black';">#CCCCFF</td> 
+	<tr>
+    </table>
+  </body>
+</html>
+
+2)Dropdown
+<html>
+<head>
+    <style>
+#dc {
+  display: none;
+  position: absolute;
+  margin-top: 10px;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+#dc a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+#dc a:hover {background-color: #ddd;}
+</style>
+</head>
+<body>
+    <nav>
+            <button>Home</button>
+            <button>About Us</button>
+            <button>Awards</button>
+            <button>Academics</button>
+            <button>R&D</button>
+                <button class="d" onmouseover="show()" >Departments
+                    <div id="dc" onmouseout="hide()">
+                        <a>AI&DS</a>
+		     <a>CSE</a>
+                        <a>EEE</a>
+                        <a>ECE</a>
+                        <a>MECH</a>
+                        <a>IT</a>
+                        <a>CIVIL</a>
+                        <a>BIO-TECH</a>
+		     <a>BIO-MED</a>
+		     <a>Arch</a>
+                        <a>MBA</a>
+                        <a>English</a>
+                        <a>Maths</a>
+		     <a>Physics</a>
+		     <a>Chemistry</a>
+		     <a>PET</a>
+                    </div>
+                </button>      
+            <button>Faculty</button>
+            <button>Library</button>
+
+    </nav>
+    <script>
+        function show(){
+            var menu=document.getElementById('dc');
+             menu.style.display="block";
+        }
+        function hide(){
+            var menu=document.getElementById('dc');
+             menu.style.display="none";
+        }
+
+    </script>
+</body>
+</html>
+
+3)Pop-up
+<html>
+<head>
+<body>
+    <h1>Pop UP</h1>    
+<script>
+     function openpopup() {
+      var popup_window=window.open("C:\Users\vishn\OneDrive\Desktop\Mepco\6th sem\Full Stack Development\ex3\ex3-2.html","_blank"," width=400, height=400");   
+      if(popup_window=='undefined'||popup_window==null)
+      {
+        return false;
+      }
+      else{
+        return true;
+      }
+}
+
+    if(openpopup()){
+    console.log('popup is allowed');
+}
+else{
+    window.alert('POP UP ')
+    window.open("C:\Users\vishn\OneDrive\Desktop\Mepco\6th sem\Full Stack Development\ex3\ex3-32.html","_self");
+    console.log('popup is blocked');
+}
+
+
+</script>
+</body>
+</html>
+
+<html>
+<head>
+<body>
+    <h2>Popup!!!</h2>
+</body>
+</head>
+</html>
+
+4)Sliding Puzzle
+<html>
+  <head>
+    <style>
+      table {
+        border-collapse: collapse;
+        width: 250px;
+        height: 250px;
+        margin: 50px auto;
+      }
+      td {
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        vertical-align: middle;
+        border: 1px solid black;
+      }
+     p           
+    { 
+    text-align: center; 
+    }
+    </style>
+    <script>
+      let blankRow;
+      let blankCol;
+      let tiles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, ""];
+  
+      function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          let j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+      }
+  
+      function isValidMove(row, col) {
+        if (row === blankRow && Math.abs(col - blankCol) === 1) {
+          return true;
+        }
+        if (col === blankCol && Math.abs(row - blankRow) === 1) {
+          return true;
+        }
+        return false;
+      }
+  
+      function moveTile(row, col) {
+        if (isValidMove(row, col)) {
+          let index = row * 4 + col;
+          tiles[blankRow * 4 + blankCol] = tiles[index];
+          tiles[index] = "";
+          blankRow = row;
+          blankCol = col;
+          renderslide();
+        }
+      }
+  
+      function renderslide() {
+        let slide = document.getElementById("slide");
+        for (let i = 0; i < 4; i++) {
+          for (let j = 0; j < 4; j++) {
+            let index = i * 4 + j;
+            let tile = tiles[index];
+            if (tile === "") {
+              blankRow = i;
+              blankCol = j;
+            }
+            slide.rows[i].cells[j].innerHTML = tile;
+            slide.rows[i].cells[j].onclick = function() {
+              moveTile(i, j);
+            };
+          }
+        }
+      } 
+     function Check(){
+	 let c=0;
+	 for (let i = 0; i < 16; i++) {
+		if(tiles[i]==i)
+		{ c=c+1; } 
+	}
+	if(c==15) { window.alert("Won");}
+	else { window.alert("Try again");}
+      }
+      window.onload = function() {
+        shuffleArray(tiles);
+        renderslide();
+      };
+    </script>
+  </head>
+  <body>
+    <table id="slide">
+      <tr bgcolor="Aquamarine">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr bgcolor="Aquamarine">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr bgcolor="Aquamarine">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr bgcolor="Aquamarine">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>     
+      </tr>
+    </table>
+    <p><button onclick="window.location.reload()">Start New Game</button></p>
+    <p><button onclick="Check()">Check</button></p>
+  </body>
+</html>

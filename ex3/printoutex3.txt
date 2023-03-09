@@ -1,0 +1,170 @@
+Exercise - 3
+3.1) RBF using image(Pistachio)
+import torch
+import torch.nn as nn
+import torchvision
+class RBFNet(nn.Module):
+    def __init__(self):
+        super(RBFNet, self).__init__()
+        self.hidden_dim = 100
+        self.output_dim = 4
+        self.num_centers = 4
+        
+        self.centers = nn.Parameter(torch.randn(4, 12288))
+        self.beta = nn.Parameter(torch.ones(num_centers, 1) / num_centers)
+        self.sigma = sigma
+        
+        self.fc = nn.Linear(num_centers, output_dim)
+    
+    def radial_basis(self, x):
+        C = self.centers.view(self.num_centers, -1)
+        return torch.exp(-torch.sum((x - C) ** 2, dim=1) / (2 * self.sigma ** 2))
+    
+    def forward(self, x):
+        batch_size = x.size(0)
+        x = x.view(batch_size, -1)
+        H = self.radial_basis(x)
+        out = self.fc(H)
+        return out
+hidden_dim = 100
+output_dim = 4
+num_centers= 4
+sigma = 1.0
+import torchvision.transforms as transforms
+import torchvision.datasets as datasets
+train_transforms = transforms.Compose([
+    transforms.Resize((64, 64)),
+    transforms.RandomHorizontalFlip(),
+    transforms.ToTensor(),
+])
+
+test_transforms = transforms.Compose([
+    transforms.Resize((64, 64)),
+    transforms.ToTensor(),
+])
+
+train_dataset = datasets.ImageFolder('C:/Users/vishn/Downloads/Pistachio_Image_Dataset/Pistachio_Image_Dataset/Pistachio_Image_Dataset', transform=train_transforms)
+test_dataset = datasets.ImageFolder('C:/Users/vishn/Downloads/Pistachio_Image_Dataset/Pistachio_Image_Dataset/Pistachio_Image_Dataset', transform=test_transforms)
+
+train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=4, shuffle=True)
+test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=4, shuffle=False)
+examples = enumerate(test_loader)
+batch_idx, (example_data, example_targets) = next(examples)
+example_data.shape
+#shape12288
+import matplotlib.pyplot as plt
+fig = plt.figure()
+for i in range(4):
+  plt.subplot(2,3,i+1)
+  plt.tight_layout()
+  plt.imshow(example_data[i][0], cmap='gray', interpolation='none')
+  plt.title("Ground Truth: {}".format(example_targets[i]))
+  plt.xticks([])
+  plt.yticks([])
+criterion = nn.CrossEntropyLoss()
+# specify optimizer
+model=RBFNet()
+optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
+# number of epochs to train the model
+n_epochs = 10  # suggest training between 20-50 epochs
+for epoch in range(n_epochs):
+    # monitor training loss
+    train_loss = 0.0
+    
+    ###################
+    # train the model #
+    ###################
+    for data, target in train_loader:
+        # clear the gradients of all optimized variables
+        #optimizer.zero_grad()
+        # forward pass: compute predicted outputs by passing inputs to the model
+        #model=RBF(data)
+        model.train()
+        output = model(data)
+        # calculate the loss
+        loss = criterion(output.float(), target.float())
+        # backward pass: compute gradient of the loss with respect to model parameters
+        loss.backward()
+        # perform a single optimization step (parameter update)
+        #optimizer.step()
+        # update running training loss
+        train_loss += loss.item()*data.size(0)
+        
+    # print training statistics 
+    # calculate average loss over an epoch
+    train_loss = train_loss/len(train_loader.dataset)
+
+    print('Epoch: {} \tTraining Loss: {:.6f}'.format(epoch+1,train_loss))
+o/p
+Epoch: 1 	Training Loss: 2.413238
+Epoch: 2 	Training Loss: 2.420463
+Epoch: 3 	Training Loss: 2.438056
+Epoch: 4 	Training Loss: 2.419271
+Epoch: 5 	Training Loss: 2.423339
+Epoch: 6 	Training Loss: 2.428745
+Epoch: 7 	Training Loss: 2.413533
+Epoch: 8 	Training Loss: 2.443355
+Epoch: 9 	Training Loss: 2.412186
+Epoch: 10 Training Loss: 2.437538
+
+3.2)RBF using keras
+import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras.layers import Dense
+
+# Define the RBF layer
+class RBFLayer(keras.layers.Layer):
+    def __init__(self, units, gamma, **kwargs):
+        super(RBFLayer, self).__init__(**kwargs)
+        self.units = units
+        self.gamma = gamma
+
+    def build(self, input_shape):
+        self.centers = self.add_weight(name='centers',
+                                       shape=(self.units, input_shape[1]),
+                                       initializer='uniform',
+                                       trainable=True)
+        super(RBFLayer, self).build(input_shape)
+
+    def call(self, inputs):
+        diff = tf.expand_dims(inputs, axis=1) - self.centers
+        squared_diff = tf.reduce_sum(tf.square(diff), axis=-1)
+        return tf.exp(-self.gamma * squared_diff)
+
+# Build the model with the RBF layer
+model = keras.Sequential([
+    Dense(10, input_shape=(2,), activation='relu'),
+    RBFLayer(10, gamma=0.1),
+    Dense(1, activation='sigmoid')
+])
+
+# Compile the model with binary cross-entropy loss and Adam optimizer
+model.compile(loss='binary_crossentropy', optimizer='adam')
+
+# Generate some sample data
+import numpy as np
+X = np.random.randn(100, 2)
+y = (X[:, 0] * X[:, 1] > 0).astype(float)
+# Train the model
+model.fit(X, y, epochs=100,batch_size=32)
+o/p
+Epoch 1/100
+4/4 [==============================] - 1s 3ms/step - loss: 0.6815
+Epoch 2/100
+4/4 [==============================] - 0s 6ms/step - loss: 0.6805
+Epoch 3/100
+4/4 [==============================] - 0s 6ms/step - loss: 0.6795
+Epoch 4/100
+4/4 [==============================] - 0s 6ms/step - loss: 0.6791
+Epoch 5/100
+4/4 [==============================] - 0s 6ms/step - loss: 0.6782
+Epoch 6/100
+4/4 [==============================] - 0s 5ms/step - loss: 0.6775
+Epoch 7/100
+4/4 [==============================] - 0s 7ms/step - loss: 0.6769
+Epoch 8/100
+4/4 [==============================] - 0s 5ms/step - loss: 0.6761
+Epoch 9/100
+4/4 [==============================] - 0s 6ms/step - loss: 0.6754
+Epoch 10/100
+4/4 [==============================] - 0s 722us/step - loss: 0.6748
